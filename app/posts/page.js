@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
 const imageLinks = [
   "https://i.ibb.co.com/GkMHjGh/17.webp",
   "https://i.ibb.co.com/b34dZ9T/18.jpg",
@@ -21,6 +23,12 @@ const imageLinks = [
 ];
 
 export default async function Blogs() {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) {
+    redirect("/api/auth/login"); // Redirect if not authenticated
+  }
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
   const posts = await res.json();
 

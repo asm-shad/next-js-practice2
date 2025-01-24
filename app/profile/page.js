@@ -1,7 +1,15 @@
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa"; // Example React Icons
 import Link from "next/link";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
 
-const ProfilePage = () => {
+const ProfilePage = async () => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) {
+    redirect("/api/auth/login"); // Redirect if not authenticated
+  }
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-r from-blue-400 via-violet-500 to-dark-600 text-white">
       <div className="flex items-center space-x-4 mb-6">

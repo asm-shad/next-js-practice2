@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 import {
   RegisterLink,
   LoginLink,
@@ -10,6 +9,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+
   return (
     <div className="border-b h-[8vh] flex items-center">
       <div className="container flex items-center justify-between">
